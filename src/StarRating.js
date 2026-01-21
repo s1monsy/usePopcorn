@@ -6,6 +6,7 @@ const textStyle ={lineHeight: '0', margin:'0'}
 
 export default function StarRating({maxRating = 5}){
 const [rating, setRating] = useState(0)
+const [tempRating, setTempRating] = useState(0)
 
 function handleRating(rating){
 setRating(rating)
@@ -13,17 +14,17 @@ setRating(rating)
 
 return <div style={containerStyle}>
 		<div style={starCointainerStyle}>
-			{Array.from({length:maxRating}, (_,i)=><Star onRate={()=>handleRating(i+1)} key={i} full={rating >= i+1}/>)}
+			{Array.from({length:maxRating}, (_,i)=><Star onHoverOut={()=>setTempRating(0) } onHoverIn={()=>setTempRating(i+1)} onRate={()=>handleRating(i+1)} key={i} full={tempRating ? tempRating >= i+1 :rating >= i+1}/>)}
 		</div>
-		<p style={textStyle}>{rating || ''}</p>
+		<p style={textStyle}>{tempRating ||rating || ''}</p>
 	</div>
 }
 
 const starStyle = {width:'48px',height:'48px',display:'block',cursor:'pointer'}
 
-function Star({onRate, full}){
+function Star({onRate, onHoverIn, onHoverOut,full}){
   return (
-    <span role="button" style={starStyle} onClick={onRate}>
+    <span role="button" style={starStyle} onClick={onRate} onMouseEnter={onHoverIn}  onMouseLeave={onHoverOut}>
 {full ? <svg
   xmlns="http://www.w3.org/2000/svg"
   viewBox="0 0 20 20"
@@ -50,16 +51,3 @@ function Star({onRate, full}){
 </span>
   )
 }
-
-
-/*
-FULL STAR
-
-
-
-
-EMPTY STAR
-
-
-
-*/
