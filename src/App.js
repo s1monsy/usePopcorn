@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from "react";
+import {useEffect, useState } from "react";
 import StarRating from "./StarRating";
 
 const tempMovieData = [
@@ -107,7 +107,6 @@ return (
       </NavBar>
       <Main>
          <Box>
-          {/* {isLoading ? <Loader/> : <MovieList movies={movies} />} */}
         {isLoading && <Loader/>}
         {!isLoading && !error && <MovieList onSelectMovie={handleSelectMovie} movies={movies}/>}
         {error && <ErrorMessage message={error}/>}
@@ -193,30 +192,6 @@ const [isOpen, setIsOpen] = useState(true);
   )
 }
 
- /*
-function WatchedBox() {
-  const [watched, setWatched] = useState(tempWatchedData);
-  const [isOpen2, setIsOpen2] = useState(true);
-
-  return (
-    <div className="box">
-      <button
-        className="btn-toggle"
-        onClick={() => setIsOpen2((open) => !open)}
-      >
-        {isOpen2 ? "–" : "+"}
-      </button>
-      {isOpen2 && (
-        <>
-          <WatchedSummary watched={watched} />
-          <WatchedMovieList watched={watched} />
-        </>
-      )}
-    </div>
-  );
-}
-*/
-
 function MovieList({movies,onSelectMovie}){
   return  (
       <ul className="list list-movies">
@@ -301,7 +276,6 @@ return (
           <p>Starring actors {actros}</p>
           <p>Directed by {director}</p>
         </section>
-        {selectedId}
       </>
     )}
   </div>
